@@ -1,10 +1,16 @@
 from .models import Exercise
-from django.views.generic import ListView, DetailView
+from rest_framework import generics
+from .serializers import ExercisesSerializer
 
 
-class ExerciseList(ListView):
-    model = Exercise
+# from django.views.generic import ListView, DetailView
 
 
-class ExerciseDetail(DetailView):
-    model = Exercise
+class ExerciseList(generics.ListCreateAPIView):
+    queryset = Exercise.objects.all()
+    serializer_class = ExercisesSerializer
+
+
+class ExerciseDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Exercise.objects.all()
+    serializer_class = ExercisesSerializer
